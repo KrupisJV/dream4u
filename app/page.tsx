@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const dresses = [
   {
@@ -59,6 +60,16 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#f8f1f4] py-10 px-4">
       <main className="mx-auto max-w-6xl overflow-hidden rounded-3xl bg-white shadow-2xl">
+
+        <div className="flex justify-end m-5 gap-5 text-sm font-medium text-gray-700">
+          <Link href="/login" className="transition hover:text-pink-500">
+            Log In
+          </Link>
+          <Link href="/login" className="transition hover:text-pink-500">
+            Sign Up
+          </Link>
+        </div>
+
         {/* Header */}
         <header className="flex flex-col items-center border-b border-pink-100 py-8">
           <div className="mb-2 text-6xl">👑</div>
@@ -89,6 +100,7 @@ export default function Home() {
             <a href="#" className="transition hover:text-pink-500">
               Contact
             </a>
+
           </nav>
         </header>
 
