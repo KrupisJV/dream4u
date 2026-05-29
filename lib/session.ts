@@ -11,5 +11,7 @@ export interface SessionData {
         id: number
         username: string
         email: string
+        image: string
+        isAdmin: boolean
     }
 }

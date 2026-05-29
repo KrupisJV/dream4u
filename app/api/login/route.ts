@@ -24,7 +24,14 @@ export async function POST(request: Request) {
         }
 
         const session = await getIronSession<SessionData>(await cookies(), sessionOptions)
-        session.user = { id: rows[0].id, username: rows[0].username, email: rows[0].email }
+        session.user = {
+			id: rows[0].id,
+			username: rows[0].username,
+			email: rows[0].email,
+			image: rows[0].image,
+			isAdmin: rows[0].isAdmin
+		}
+
         await session.save()
 
         return Response.json({ message: "Login Successful!" }, { status: 200 })

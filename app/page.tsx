@@ -1,5 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import { sessionOptions, SessionData } from "@/lib/session"
+import { getIronSession } from "iron-session"
+import { cookies } from "next/headers"
+import LogoutButton from "@/components/logoutButton"
 
 const dresses = [
   {
@@ -56,11 +60,19 @@ const accessories = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const session = await getIronSession<SessionData>(await cookies(), sessionOptions)
+
   return (
     <div className="min-h-screen bg-[#f8f1f4] py-10 px-4">
       <main className="mx-auto max-w-6xl overflow-hidden rounded-3xl bg-white shadow-2xl">
 
+        {session.user ? (
+		<div className="flex justify-end m-5 gap-5 text-sm font-medium text-gray-700">
+		  <div className="h-12 w-12 rounded-full bg-red-500"></div>
+		  <LogoutButton />
+		</div>
+		) : (
         <div className="flex justify-end m-5 gap-5 text-sm font-medium text-gray-700">
           <Link href="/login" className="transition hover:text-pink-500">
             Log In
@@ -69,6 +81,7 @@ export default function Home() {
             Sign Up
           </Link>
         </div>
+        )}
 
         {/* Header */}
         <header className="flex flex-col items-center border-b border-pink-100 py-8">
