@@ -15,14 +15,11 @@ export default function SignUp() {
     const handleSubmit = async (e) => {
        e.preventDefault()
 
-       if (password !== confirmPassword) {
-           return setError("Passwords do not match!")
-       }
-
+       {/* Wait response from backend */}
        const response = await fetch("/api/signup", {
            method: "POST",
            headers: { "Content-Type": "application/json" },
-           body: JSON.stringify({ username, email, password })
+           body: JSON.stringify({ username, email, password, confirmPassword })
        })
 
        const data = await response.json()
@@ -39,17 +36,15 @@ export default function SignUp() {
             <main className="mx-auto max-w-6xl overflow-hidden rounded-3xl bg-white shadow-2xl">
 
                 {/* Header */}
-                <Link href="/">
-                    <header className="flex flex-col items-center border-b border-pink-100 py-8">
-                        <div className="mb-2 text-6xl">👑</div>
+                <header className="flex flex-col items-center border-b border-pink-100 py-8">
+                    <div className="mb-2 text-6xl">👑</div>
 
-                        <h1 className="text-6xl font-light tracking-wide text-[#7a2948]">
-                            Dream
-                        </h1>
+                    <Link href="/"><h1 className="text-6xl font-light tracking-wide text-[#7a2948]">
+                        Dream
+                    </h1></Link>
 
-                        <p className="mt-2 text-lg text-[#7a2948]">Dream 4U</p>
-                    </header>
-                </Link>
+                    <p className="mt-2 text-lg text-[#7a2948]">Dream 4U</p>
+                </header>
 
                 <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
                     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">

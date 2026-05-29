@@ -65,7 +65,7 @@ export default function Home() {
           <Link href="/login" className="transition hover:text-pink-500">
             Log In
           </Link>
-          <Link href="/login" className="transition hover:text-pink-500">
+          <Link href="/signup" className="transition hover:text-pink-500">
             Sign Up
           </Link>
         </div>
