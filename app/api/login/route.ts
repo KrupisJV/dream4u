@@ -1,4 +1,4 @@
-import pool from "@/lib/db"
+import sql from "@/lib/db"
 import bcrypt from "bcryptjs"
 import { getIronSession } from "iron-session"
 import { cookies } from "next/headers"
@@ -13,7 +13,7 @@ export async function POST(request: Request) {
             return Response.json({ message: "Please, fill out all the fields!" }, { status: 400 })
         }
 
-        const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [email]) as any[]
+        const rows = await sql`SELECT * FROM users WHERE email = ${email}`
         if (rows.length === 0) {
             return Response.json({ message: "User not found!" }, { status: 400 })
         }

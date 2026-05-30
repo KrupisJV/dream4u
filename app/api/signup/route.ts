@@ -1,4 +1,4 @@
-import pool from "@/lib/db";
+import sql from "@/lib/db";
 import bcrypt from "bcryptjs";
 import crypto from "crypto"
 import { sendVerificationEmail } from "@/lib/mailer"
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
             return Response.json({ message: "Passwords do not match!" }, { status: 400 })
         }
 
-        const [rows] = await pool.query("SELECT email FROM users WHERE email = ? UNION SELECT email FROM pending_users WHERE email = ?", [email, email]) as any[]
+        const rows = await sql`SELECT email FROM users WHERE email = ${email} UNION SELECT email FROM pending_users WHERE email = ${email}`
 
         if (rows.length > 0) {
             return Response.json({ message: "User already exists!" }, { status: 400 });
@@ -28,7 +28,7 @@ export async function POST(request: Request) {
 
         const token = crypto.randomBytes(32).toString("hex")
         const hash = await bcrypt.hash(password, 10)
-        await pool.query("INSERT INTO pending_users (username, email, password, token) VALUES (?, ?, ?, ?)", [username, email, hash, token])
+        await sql`INSERT INTO pending_users (username, email, password, token) VALUES (${username}, ${email}, ${password}, ${token})`
         await sendVerificationEmail(email, token)
 
         return Response.json({ message: "Success!" }, { status: 200 })
