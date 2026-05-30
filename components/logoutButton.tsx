@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 export default function LogoutButton() {
 	const router = useRouter()
 
-	const handleLogout = async (e) => {
+	const handleLogout = async (e: React.MouseEvent) => {
 		const response = await fetch("/api/logout", {
 			method: "POST"
 		})
