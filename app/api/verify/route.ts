@@ -14,7 +14,7 @@ export async function GET(request: Request) {
             return Response.json({ message: "This token has expired!" }, { status: 400 })
         }
 
-        await sql`INSERT INTO users (username, email, password) VALUES (${username}, ${email}, ${password})`
+        await sql`INSERT INTO users (username, email, password) VALUES (${rows[0].username}, ${rows[0].email}, ${rows[0].password})`
         await sql`DELETE FROM pending_users WHERE token = ${token}`
 
         return Response.redirect(new URL("/login", request.url))
